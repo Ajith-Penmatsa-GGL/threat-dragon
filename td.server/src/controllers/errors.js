@@ -65,10 +65,20 @@ export const unauthorized = (res, logger) => sendError('You must login to contin
  */
 export const forbidden = (res, logger) => sendError('Forbidden', 403, 'Forbidden', res, logger);
 
+/**
+ * Returns a 422 status / error for unprocessable entity (e.g., resource already exists)
+ * @param {String} error
+ * @param {Object} res
+ * @param {*} logger
+ * @returns {Object}
+ */
+export const unprocessableEntity = (error, res, logger) => sendError(error, 422, 'Unprocessable Entity', res, logger);
+
 export default {
     badRequest,
     forbidden,
     notFound,
     serverError,
-    unauthorized
+    unauthorized,
+    unprocessableEntity
 };

@@ -75,9 +75,13 @@ const repoCreate = async (rootState, state) => {
         );
         Vue.$toast.success(i18n.get().t('threatmodel.prompts.created'));
     } catch (ex) {
-        console.error('Failed to create threat model!');
-        console.error(ex);
-        Vue.$toast.error(i18n.get().t('threatmodel.errors.create'));
+        if (ex.response && ex.response.status === 422) {
+            Vue.$toast.warning(i18n.get().t('threatmodel.warnings.exists'));
+        } else {
+            console.error('Failed to create threat model!');
+            console.error(ex);
+            Vue.$toast.error(i18n.get().t('threatmodel.errors.create'));
+        }
         return false;
     }
     return true;

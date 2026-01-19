@@ -71,6 +71,7 @@ const actions = {
                 dispatch(THREATMODEL_STASH);
                 commit(THREATMODEL_NOT_MODIFIED);
             }
+            return result;
         }
     },
     [THREATMODEL_DIAGRAM_APPLIED]: ({ commit }) => commit(THREATMODEL_DIAGRAM_APPLIED),

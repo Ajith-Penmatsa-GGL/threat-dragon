@@ -2,7 +2,7 @@ import env from '../env/Env.js';
 import loggerHelper from '../helpers/logger.helper.js';
 import repositories from "../repositories";
 import responseWrapper from './responseWrapper.js';
-import { serverError } from './errors.js';
+import { serverError, unprocessableEntity } from './errors.js';
 
 const logger = loggerHelper.get('controllers/threatmodelcontroller.js');
 
@@ -121,6 +121,9 @@ const create = async (req, res) => {
         const createResp = await repository.createAsync(modelBody, req.provider.access_token);
         return res.status(201).send(createResp);
     } catch (err) {
+        if (err.statusCode === 422) {
+            return unprocessableEntity('Model already exists', res, logger);
+        }
         logger.error(err);
         return serverError('Error creating model', res, logger);
     }
