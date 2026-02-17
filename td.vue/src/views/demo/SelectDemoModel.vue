@@ -61,7 +61,7 @@ export default {
                 // tell any electron server that the model has changed
                 window.electronAPI.modelOpened(model.name);
             }
-            if (this.providerType === providerTypes.local) {
+            if (this.providerType === providerTypes.local || isElectron()) {
                 const params = Object.assign({}, this.$route.params, { threatmodel: model.name });
                 this.$router.push({ name: 'localThreatModel' , params });}
 
